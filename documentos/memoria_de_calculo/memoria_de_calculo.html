@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Renato Vargas" />
+<meta name="author" content="Renato Vargas, Andrés Mondaini" />
 
 <meta name="date" content="2022-11-07" />
 
@@ -1635,14 +1635,14 @@ pre code {
 
 
 <h1 class="title toc-ignore">Memoria de Cálculo SIBIO</h1>
-<h4 class="author">Renato Vargas</h4>
+<h4 class="author">Renato Vargas, Andrés Mondaini</h4>
 <h4 class="date">2022-11-07</h4>
 
 </div>
 
 
-<div id="preámbulo" class="section level1">
-<h1>Preámbulo</h1>
+<div id="preámbulo" class="section level2">
+<h2>Preámbulo</h2>
 <p>En esta memoria de cálculo se muestra de manera anotada el código
 utilizado para procesar los cuadros de oferta y utilización para
 convertirlos de cuadros de entrada múltiple a archivos planos
@@ -1715,6 +1715,7 @@ corrientes, así que colocamos ese identificador en una variable llamada
 anio &lt;- as.numeric((str_extract(info[2, ], &quot;\\d{4}&quot;)))
 unidad &lt;- toString(info[1, ]) 
 precios &lt;- &quot;Corrientes&quot;</code></pre>
+</div>
 <div id="cuadro-de-oferta" class="section level2">
 <h2>Cuadro de Oferta</h2>
 <p>En este punto leemos los datos crudos como matriz del cuadro de
@@ -1901,9 +1902,8 @@ colnames(empleo) &lt;- c(&quot;Año&quot;,
                       &quot;Valor&quot;,
                       &quot;Unidades&quot;)</code></pre>
 </div>
-</div>
-<div id="todo-el-cou-en-formato-plano-estructurado" class="section level1">
-<h1>Todo el COU en formato plano estructurado</h1>
+<div id="todo-el-cou-en-formato-plano-estructurado" class="section level2">
+<h2>Todo el COU en formato plano estructurado</h2>
 <p>Con los archivos planos estructurados de cada cuadro preparados, dado
 que comparten las mismas columnas en el mismo orden, simplemente los
 unimos a través de las filas, uno sobre el otro. A partir del resultado,
@@ -1918,9 +1918,16 @@ cuadros de oferta y utilización originales, determinamos con qué
 transacción, actividad económica y producto se asocia cada uno de los
 correlativos que creamos al principio, utilizando una columna para cada
 correspondencia, haciéndolo una sola vez.</p>
-<p>clasificacionColumnas &lt;- read_xlsx( “filas_y_columnas.xlsx”, sheet
-= “columnas”, col_names = TRUE, ) clasificacionFilas &lt;- read_xlsx(
-“filas_y_columnas.xlsx”, sheet = “filas”, col_names = TRUE, )</p>
+<pre class="r"><code>clasificacionColumnas &lt;- read_xlsx(
+  &quot;filas_y_columnas.xlsx&quot;,
+  sheet = &quot;columnas&quot;,
+  col_names = TRUE,
+)
+clasificacionFilas &lt;- read_xlsx(
+  &quot;filas_y_columnas.xlsx&quot;,
+  sheet = &quot;filas&quot;,
+  col_names = TRUE,
+)</code></pre>
 <p>Con las tablas de equivalencia importadas, utilizamos la función
 <code>join()</code> de la librería <code>plyr</code> para vincular los
 correlativos creados con las transacciones, actividades económicas y
@@ -1940,6 +1947,7 @@ SCN &lt;- join(SCN,clasificacionFilas, by = &quot;Filas&quot;)</code></pre>
   overwrite = TRUE,
   asTable = FALSE
 )</code></pre>
+<p>.</p>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
@@ -1947,7 +1955,7 @@ SCN &lt;- join(SCN,clasificacionFilas, by = &quot;Filas&quot;)</code></pre>
 <li id="fn1"><p>Algunos países utilizan una pestaña distinta para cada
 cuadro. En ese caso se deberá copiar y pegar previamente todos los
 cuadros de un año en una sola pestaña asegurándose que para todos los
-años los cuadros están exactamente en las mismas celdas<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+años los cuadros están exactamente en las mismas celdas.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

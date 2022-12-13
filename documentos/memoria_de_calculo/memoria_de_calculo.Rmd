@@ -1,6 +1,6 @@
 ---
 title: "Memoria de Cálculo SIBIO"
-author: "Renato Vargas"
+author: "Renato Vargas, Andrés Mondaini"
 date: "2022-11-07"
 output:
   word_document: default
